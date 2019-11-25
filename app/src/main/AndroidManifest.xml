@@ -25,7 +25,7 @@ package="com.example.androidlauncher_cis357">
     </activity>
     <activity android:name=".SettingsActivity"></activity>
     <activity android:name=".ColorActivity"></activity>
-    <activity android:name=".PageViewer"></activity>
+    <activity android:name=".InfoActivity"></activity>
 </application>
 
 

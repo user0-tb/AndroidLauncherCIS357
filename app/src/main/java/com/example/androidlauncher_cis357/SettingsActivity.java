@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    int STATUS_HEIGHT;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +17,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         Button colorSettings = findViewById(R.id.colorsettings);
         Button settingButton = findViewById(R.id.systemsettings);
+        Button launcherInfo = findViewById(R.id.launcherinfo);
 
         colorSettings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +32,13 @@ public class SettingsActivity extends AppCompatActivity {
                 Intent intent = new Intent(Settings.ACTION_SETTINGS);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+            }
+        });
+
+        launcherInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),InfoActivity.class));
             }
         });
     }
