@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Android Launcher - CIS 357</string>
+    <string name="status_bar_color">Status Bar Color</string>
+
+    <string-array name="color_array">
+        <item>black</item>
+        <item>blue</item>
+        <item>white</item>
+        <item>seashell</item>
+        <item>pink</item>
+        <item>orange_red</item>
+    </string-array>
+</resources>

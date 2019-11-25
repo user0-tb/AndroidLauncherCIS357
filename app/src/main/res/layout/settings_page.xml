@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settingsview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#000000"
+        android:fontFamily="sans-serif-medium"
+        android:scrollHorizontally="false"
+        android:text="  Launcher Preferences"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="#F3EEEE"
+        android:textSize="18sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0E0D0D">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5sp"
+            android:divider="@drawable/empty_tall_divider"
+            android:orientation="vertical"
+            android:showDividers="middle">
+
+            <Button
+                android:id="@+id/colorsettings"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/rounded_button"
+                android:fontFamily="sans-serif-medium"
+                android:text="   Color Settings"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="#FFFCFC"
+                android:textSize="15sp"
+                android:transformPivotY="10sp" />
+
+            <Button
+                android:id="@+id/systemsettings"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/rounded_button"
+                android:fontFamily="sans-serif-medium"
+                android:text="   System Settings"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="#FFFCFC"
+                android:textSize="15sp"
+                android:transformPivotY="10sp" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
