@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -55,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                Intent intent = new Intent(getBaseContext(),SettingsActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -114,11 +116,13 @@ public class MainActivity extends AppCompatActivity {
             appList.add(new AppObject("", "", ResourcesCompat.getDrawable(getResources(), R.drawable.check, null), false));
         }
 
+        //Let user know when a new page is added to the home screen
         Toast.makeText(this,"New Page Added", Toast.LENGTH_SHORT).show();
         pagerAppList.add(new PagerObject(appList));
     }
 
     private void removePage(ArrayList<PagerObject> pagerAppList) {
+        //Let user know when a page is removed from the home screen
         Toast.makeText(this,"Page Removed", Toast.LENGTH_SHORT).show();
         pagerAppList.remove(pagerAppList.size()-1);
     }
@@ -161,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void itemPress(AppObject app) {
         if (appDrag != null && !app.getAppName().equals("")) {
+            //Let user know if a grid spot already contains an app on the homescreen
             Toast.makeText(this,"Cell Already Taken", Toast.LENGTH_SHORT).show();
             appDrag = null;
             return;

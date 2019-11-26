@@ -18,7 +18,6 @@ q2
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            android:background="@drawable/defback"
             android:scaleType="centerCrop" />
 
         <androidx.viewpager.widget.ViewPager

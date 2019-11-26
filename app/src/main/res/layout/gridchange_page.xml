@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:fitsSystemWindows="true">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="  Home Grid Settings"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="18sp">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="242dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="  Number of rows : "
+            android:textColor="#F7F6F6"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/rowspinner"
+            android:layout_width="221dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="241dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="  Number of columns : "
+            android:textColor="#F7F6F6"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/columnspinner"
+            android:layout_width="221dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/gridpreview"
+        android:layout_width="match_parent"
+        android:layout_height="475dp" />
+
+    <Button
+        android:id="@+id/savegridbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Settings"
+        android:background="@drawable/rounded_button"/>
+
+
+</LinearLayout>

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 package="com.example.androidlauncher_cis357">
 
+    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.VIBRATE" />
     <application
     android:allowBackup="true"
@@ -26,6 +28,8 @@ package="com.example.androidlauncher_cis357">
     <activity android:name=".SettingsActivity"></activity>
     <activity android:name=".ColorActivity"></activity>
     <activity android:name=".InfoActivity"></activity>
+        <activity android:name=".WallpaperActivity"></activity>
+        <activity android:name=".GridSizeActivity"></activity>
 </application>
 
 

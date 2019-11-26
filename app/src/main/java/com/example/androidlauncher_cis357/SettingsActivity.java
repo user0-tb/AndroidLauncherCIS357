@@ -1,14 +1,20 @@
 package com.example.androidlauncher_cis357;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingsActivity extends AppCompatActivity {
+
+    public ImageView homeScreenImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +24,10 @@ public class SettingsActivity extends AppCompatActivity {
         Button colorSettings = findViewById(R.id.colorsettings);
         Button settingButton = findViewById(R.id.systemsettings);
         Button launcherInfo = findViewById(R.id.launcherinfo);
+        Button wallpaperSet = findViewById(R.id.wallpapbutton);
+        Button gridChangeButton = findViewById(R.id.gridsizebutton);
 
+        //Button for color settings
         colorSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -26,6 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //Button for system settings
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -35,10 +45,27 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //Button for launcher info
         launcherInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),InfoActivity.class));
+            }
+        });
+
+        //Button to change wallpaper
+        wallpaperSet.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),WallpaperActivity.class));
+            }
+        });
+
+        //Button to change grid size
+        gridChangeButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),GridSizeActivity.class));
             }
         });
     }
