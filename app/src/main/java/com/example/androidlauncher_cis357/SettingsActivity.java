@@ -1,9 +1,6 @@
 package com.example.androidlauncher_cis357;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -24,7 +21,6 @@ public class SettingsActivity extends AppCompatActivity {
         Button colorSettings = findViewById(R.id.colorsettings);
         Button settingButton = findViewById(R.id.systemsettings);
         Button launcherInfo = findViewById(R.id.launcherinfo);
-        Button wallpaperSet = findViewById(R.id.wallpapbutton);
         Button gridChangeButton = findViewById(R.id.gridsizebutton);
 
         //Button for color settings
@@ -50,14 +46,6 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),InfoActivity.class));
-            }
-        });
-
-        //Button to change wallpaper
-        wallpaperSet.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),WallpaperActivity.class));
             }
         });
 

@@ -4,7 +4,10 @@ import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -94,7 +97,7 @@ public class AppAdapter extends BaseAdapter {
                 View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
                 v.startDragAndDrop(clipData,shadowBuilder,v,0);
                 ((MainActivity) context).itemDrag(appList.get(position));
-                return false;
+                return true;
             }
         });
         return v;

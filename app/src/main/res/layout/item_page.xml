@@ -8,11 +8,13 @@
 
     <GridLayout
         android:id="@+id/drawerGrid"
-        android:layout_width="410dp"
-        android:layout_height="731dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:numColumns="4"
         android:stretchMode="columnWidth"
+        android:columnOrderPreserved="true"
+        android:rowOrderPreserved="true"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="1dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,21 +9,20 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
+        android:layout_margin="12sp"
+        android:layout_gravity="center"
         android:id="@+id/image"
-        android:padding="3dp"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/label"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:shadowColor="@android:color/black"
-        android:shadowRadius="10"
-        android:maxLines="2"
+        android:shadowRadius="15"
         android:text="App Name"
         android:gravity="center_horizontal"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
 </LinearLayout>
