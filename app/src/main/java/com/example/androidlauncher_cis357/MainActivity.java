@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int RESULT_PRO_IMG = 1;
     private HashSet<String> set;
 
+    //Integers to change the grid size of the launcher programatically
     private int GRID_ROWS;
     private int GRID_COLUMNS;
 
@@ -67,30 +68,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Set up the topDrawer layout
         topDrawerLayout = findViewById(R.id.topDrawerLayout);
         topDrawerLayout.post(new Runnable() {
             @Override
             public void run() {
                 DRAWER_PEEK = topDrawerLayout.getHeight();
+                //Initialize the home screen and the app drawer
                 initHome();
                 initDrawer();
             }
         });
 
+        //Retrieve shared preferences from the app close and use this data to get a drawable that
+        //is used to set the home screen image to what it previously was on close
         SharedPreferences preferences = getSharedPreferences("Image", Context.MODE_PRIVATE);
         String homeImageURL = preferences.getString("filepath","");
         Bitmap bitmap = BitmapFactory.decodeFile(homeImageURL);
-
         Drawable image = new BitmapDrawable(getResources(), bitmap);
 
+        //Get the previous home screen image
         homeImage = findViewById(R.id.homeScreenImage);
 
+        //Get the installed apps
         installedAppList = getInstalledAppList();
 
+        //Set the background of home screen
         homeImage.setBackground(image);
 
+        //Instanciate the image button
         ImageButton settingsButton = findViewById(R.id.settings);
 
+        //On click listener for the settings button
         settingsButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -101,13 +110,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        detector.onTouchEvent(event);
-//        return super.onTouchEvent(event);
-//    }
-
+    /**
+     * Initializes the home screen with an enmpty grid page in the ViewPager. Sets
+     * all adapters and adds listeners to both the add page and delete page buttons.
+     * Users can add and delete pages within the home ViewPager
+     */
     private void initHome() {
         final ArrayList<PagerObject> pagerAppList = new ArrayList<>();
 
@@ -155,30 +162,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Creates a new page on the homescreen with correct columns and rows
+     * Creates a new page on the homescreen with correct columns and rows. Also checks
+     * to make sure that an infinite amount isn't added.
      * @param pagerAppList
      */
     private void createNewPage(ArrayList<PagerObject> pagerAppList) {
 
-        ArrayList<AppObject> appList = new ArrayList<>();
+        if(pagerAppList.size() <= 10){
+            ArrayList<AppObject> appList = new ArrayList<>();
 
-        for (int i = 0; i < 20; i++) {
-            appList.add(new AppObject("", "", ResourcesCompat.getDrawable(getResources(), R.drawable.check, null), false));
+            for (int i = 0; i < 20; i++) {
+                appList.add(i,new AppObject("", "", ResourcesCompat.getDrawable(getResources(), R.drawable.check, null), false));
+            }
+            loadAppsOnOpen(appList);
+            //Let user know when a new page is added to the home screen
+            Toast.makeText(this,"New Page Added", Toast.LENGTH_SHORT).show();
+            pagerAppList.add(new PagerObject(appList));
         }
-
-        loadAppsOnOpen(appList);
-
-        //Let user know when a new page is added to the home screen
-        Toast.makeText(this,"New Page Added", Toast.LENGTH_SHORT).show();
-        pagerAppList.add(new PagerObject(appList));
+        else {
+            Toast.makeText(this, "Too many pages on screen", Toast.LENGTH_SHORT).show();
+        }
     }
 
+    /**
+     * Function that removes a page from the screen unless there is only one page
+     * on the screen. Doesn't currently pay attention to apps that were on the screen.
+     *
+     * @param pagerAppList
+     */
     private void removePage(ArrayList<PagerObject> pagerAppList) {
-        //Let user know when a page is removed from the home screen
-        Toast.makeText(this,"Page Removed", Toast.LENGTH_SHORT).show();
-        pagerAppList.remove(pagerAppList.size()-1);
+        if(pagerAppList.size() == 1){
+            Toast.makeText(this, "Cannot delete any more",Toast.LENGTH_SHORT);
+        }
+        else {
+            //Let user know when a page is removed from the home screen
+            Toast.makeText(this, "Page Removed", Toast.LENGTH_SHORT).show();
+            pagerAppList.remove(pagerAppList.size() - 1);
+        }
     }
 
+    /**
+     * Initialize the Drawer which will house all apps that are installed. Hides when
+     * the drawer is slid down and shows the drawer when sliding up. Controls app
+     * drawer behaviour within the launcher.
+     */
     private void initDrawer() {
         final View bottomSheet = findViewById(R.id.bottomSheet);
         drawerGridView = findViewById(R.id.drawerGrid);
@@ -203,15 +230,17 @@ public class MainActivity extends AppCompatActivity {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
             }
-
             @Override
             public void onSlide(@NonNull View view, float v) {
             }
         });
-        // homeAppList = getHomeAppList();
-
     }
 
+    /**
+     * Function that checks when an item is pressed, will add the app to the screen and then
+     * also make sure theat the grid is notified of the change.
+     * @param app
+     */
     public void itemPress(AppObject app) {
         if (appDrag != null && !app.getAppName().equals("")) {
             //Let user know if a grid spot already contains an app on the homescreen
@@ -238,6 +267,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Function that removes a selected app from the screen
+     * @param appDrag
+     */
     private void removeApp(AppObject appDrag) {
         appDrag.setPackageName("");
         appDrag.setName("");
@@ -246,19 +279,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * When an app is long pressed, this function is called. Used to store app data into an
+     * object for movement to the home View.
+     * @param app
+     * @return
+     */
     public Boolean itemDrag(AppObject app) { //drag app on long tap
         collapseDrawer();
         appDrag = app;
         return true;
     }
 
+    /**
+     *  Function that collapses the AppDrawer when called.
+     */
     private void collapseDrawer() {
         drawerGridView.setY(DRAWER_PEEK);
         findViewById(R.id.addpage).setVisibility(View.VISIBLE);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 
-
+    /**
+     * Function that returns a list of all the installed apps on the
+     * phone that launcher is running on.
+     */
     private List<AppObject> getInstalledAppList() {
         List<AppObject> list = new ArrayList<>();
 
@@ -279,6 +324,10 @@ public class MainActivity extends AppCompatActivity {
         return list;
     }
 
+    /**
+     * Get the content height of the screen, makes sure things are scaled
+     * correctly on load.
+     */
     private int getDisplayContentHeight() {
         final WindowManager windowManager = getWindowManager();
         final Point size = new Point();
@@ -298,6 +347,10 @@ public class MainActivity extends AppCompatActivity {
         return screenHeight - contentTop - actionBarHeight - statusBarHeight;
     }
 
+    /**
+     * Function that is supposed to take data of an AppObject and save it when the app
+     * is closed completely. (Does not currently work correctly)
+     */
     private void saveAppsOnClose(AppObject app){
         String appName = app.getAppName();
         set = new HashSet<String>();
@@ -308,6 +361,12 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
     }
 
+    /**
+     * Function that is supposed to load all of the apps that were on te screen on close, should
+     * put them on the same page as the page originally used as well as keeping grid positioning.
+     * (This also does not currently work as it should)
+     * @param appList
+     */
     private void loadAppsOnOpen(ArrayList<AppObject> appList){
         SharedPreferences preferences = getSharedPreferences("savedApps",Context.MODE_PRIVATE);
         Set<String> loadApps = preferences.getStringSet("set",new HashSet<String>());
@@ -319,24 +378,34 @@ public class MainActivity extends AppCompatActivity {
                 String appName = itr.toString();
                 String packageName = "";
                 Drawable appImage = null;
-                for(int i = 0; i< installedAppList.size(); i++){
-                    if(installedAppList.get(i).getAppName() == appName){
+                for(int i = 0; i< installedAppList.size(); i++) {
+                    if (installedAppList.get(i).getAppName() == appName) {
                         packageName = installedAppList.get(i).getPackageName();
                         appImage = installedAppList.get(i).getAppImage();
                     }
                 }
-              //  appList.add(1,new AppObject(packageName,appName,appImage,true));
             }
         }
     }
 
-//    //Wallpaper change for home screen
+    /**
+     * Function that calls all that is needed to change the background.
+     */
     private void changeWallpaper(){
         Intent photoIntent = new Intent(Intent.ACTION_PICK);
         photoIntent.setType("image/*");
         startActivityForResult(photoIntent,RESULT_PRO_IMG);
     }
 
+    /**
+     * Function that retrieves an image from the gallery and will then set it
+     * as the homescreen background image. Gets a drawable from the bitmap of
+     * an image that is selected and sets that as the background.
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.i("Data", "Data Result Code :" + requestCode);
@@ -365,7 +434,6 @@ public class MainActivity extends AppCompatActivity {
 
                             SharedPreferences preferences = getSharedPreferences("Image", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();
-
                             WallpaperManager myWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
 
                             try {

@@ -12,7 +12,7 @@
         android:layout_margin="12sp"
         android:layout_gravity="center"
         android:id="@+id/image"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher_round" />
 
     <TextView
         android:id="@+id/label"

@@ -40,6 +40,7 @@ public class AppAdapter extends BaseAdapter {
         this.cellHeight = cellHeight;
     }
 
+
     @Override
     public int getCount() {
         return appList.size();
@@ -83,13 +84,6 @@ public class AppAdapter extends BaseAdapter {
             }
         });
 
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                ((MainActivity) context).itemPress(appList.get(position));
-//                return false;
-//            }
-//        });((MainActivity) context).itemDrag(appList.get(position));
-
         vLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -103,44 +97,4 @@ public class AppAdapter extends BaseAdapter {
         return v;
     }
 }
-
-
-//        vLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ((MainActivity) context).itemPress(appList.get(position));
-//            }
-//        });
-//        vLayout.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                ((MainActivity) context).itemDrag(appList.get(position));
-//                return true;
-//            }
-//        });
-//        return v;
-
-
-//    private class myDragListener implements View.OnDragListener{
-//        @Override
-//        public boolean onDrag(View v, DragEvent event){
-//            switch (event.getAction()){
-//                case DragEvent.ACTION_DRAG_STARTED:
-//                    if(event.getClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)){
-//                        v.invalidate();
-//                        return true;
-//                    }
-//                    break;
-//                case DragEvent.ACTION_DRAG_ENTERED:
-//                    break;
-//                case DragEvent.ACTION_DRAG_EXITED:
-//                    break;
-//                case DragEvent.ACTION_DROP:
-//                    ClipData.Item item = event.getClipData().getItemAt(0);
-//                    data = item.getText();
-//
-//            }
-//        return false;
-//        }
-//    }
 

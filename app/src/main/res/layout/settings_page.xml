@@ -85,6 +85,19 @@
                 android:textSize="15sp"
                 android:transformPivotY="10sp" />
 
+            <Button
+                android:id="@+id/installedapps"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/rounded_button"
+                android:fontFamily="sans-serif-medium"
+                android:text="   Installed Apps"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="#FFFCFC"
+                android:textSize="15sp"
+                android:transformPivotY="10sp" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -40,7 +40,6 @@ public class ColorActivity extends AppCompatActivity {
 
         final Window w = this.getWindow();
 
-
         statColorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
