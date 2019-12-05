@@ -73,19 +73,6 @@
                 android:transformPivotY="10sp" />
 
             <Button
-                android:id="@+id/gridsizebutton"
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:background="@drawable/rounded_button"
-                android:fontFamily="sans-serif-medium"
-                android:text="   Change Grid Size"
-                android:textAlignment="viewStart"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textColor="#FFFCFC"
-                android:textSize="15sp"
-                android:transformPivotY="10sp" />
-
-            <Button
                 android:id="@+id/installedapps"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
@@ -97,6 +84,37 @@
                 android:textColor="#FFFCFC"
                 android:textSize="15sp"
                 android:transformPivotY="10sp" />
+
+            <LinearLayout
+                android:layout_width="390dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/currpagetext"
+                    android:layout_width="197dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="   Current page size :"
+                    android:textColor="@color/white" />
+
+                <EditText
+                    android:id="@+id/pagesize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/savegridsize"
+                android:layout_width="231dp"
+                android:layout_height="wrap_content"
+                android:text=" Save Grid Size" />
 
         </LinearLayout>
     </ScrollView>

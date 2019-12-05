@@ -87,9 +87,6 @@ public class AppAdapter extends BaseAdapter {
         vLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ClipData clipData = ClipData.newPlainText("","");
-                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
-                v.startDragAndDrop(clipData,shadowBuilder,v,0);
                 ((MainActivity) context).itemDrag(appList.get(position));
                 return true;
             }

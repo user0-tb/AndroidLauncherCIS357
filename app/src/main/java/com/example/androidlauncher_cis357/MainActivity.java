@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import android.annotation.SuppressLint;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
@@ -18,14 +17,11 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -33,8 +29,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.tabs.TabLayout;
-import com.viewpagerindicator.LinePageIndicator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,12 +50,17 @@ public class MainActivity extends AppCompatActivity {
     public AppObject appDrag = null;
     ViewPagerAdapter hViewPagerAdapter;
     public ImageView homeImage;
+    public boolean deleteApp;
     public static final int RESULT_PRO_IMG = 1;
     private HashSet<String> set;
+    final ArrayList<PagerObject> pagerAppList = new ArrayList<>();
 
     //Integers to change the grid size of the launcher programatically
-    private int GRID_ROWS;
-    private int GRID_COLUMNS;
+
+    private int DEF_GRID_SIZE = 20;
+    private int GRID_SIZE = 20;
+    private int NUM_ALLOWED_PAGES = 10;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 initDrawer();
             }
         });
+
 
         //Retrieve shared preferences from the app close and use this data to get a drawable that
         //is used to set the home screen image to what it previously was on close
@@ -104,7 +104,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(getBaseContext(),SettingsActivity.class);
-                startActivity(intent);
+                intent.putExtra("currPage",homeViewPager.getCurrentItem());
+                intent.putExtra("currGridSize",hViewPagerAdapter.homeGridView.getCount());
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -116,8 +118,6 @@ public class MainActivity extends AppCompatActivity {
      * Users can add and delete pages within the home ViewPager
      */
     private void initHome() {
-        final ArrayList<PagerObject> pagerAppList = new ArrayList<>();
-
         if(pagerAppList.size() == 0) {
             createNewPage(pagerAppList);
         }
@@ -168,12 +168,14 @@ public class MainActivity extends AppCompatActivity {
      */
     private void createNewPage(ArrayList<PagerObject> pagerAppList) {
 
-        if(pagerAppList.size() <= 10){
+        if(pagerAppList.size() <= NUM_ALLOWED_PAGES){
             ArrayList<AppObject> appList = new ArrayList<>();
 
-            for (int i = 0; i < 20; i++) {
-                appList.add(i,new AppObject("", "", ResourcesCompat.getDrawable(getResources(), R.drawable.check, null), false));
+            for (int i = 0; i < DEF_GRID_SIZE-1; i++) {
+                appList.add(i,new AppObject("", "", ResourcesCompat.getDrawable(getResources(), R.drawable.gridsquare, null), false));
             }
+            appList.add(DEF_GRID_SIZE-1,new AppObject("","Delete",ResourcesCompat.getDrawable(getResources(), R.drawable.trashcan, null), false));
+
             loadAppsOnOpen(appList);
             //Let user know when a new page is added to the home screen
             Toast.makeText(this,"New Page Added", Toast.LENGTH_SHORT).show();
@@ -243,6 +245,14 @@ public class MainActivity extends AppCompatActivity {
      */
     public void itemPress(AppObject app) {
         if (appDrag != null && !app.getAppName().equals("")) {
+            //Delete app when the position clicked on the grid is "Delete" (Bottom Right)
+            if( app.getAppName().equals("Delete")){
+                removeApp(appDrag);
+                appDrag = null;
+                hViewPagerAdapter.notifyGridChange();
+                Toast.makeText(this, "App removed",Toast.LENGTH_SHORT);
+                return;
+            }
             //Let user know if a grid spot already contains an app on the homescreen
             Toast.makeText(this,"Cell Already Taken", Toast.LENGTH_SHORT).show();
             appDrag = null;
@@ -260,7 +270,8 @@ public class MainActivity extends AppCompatActivity {
             appDrag = null;
             hViewPagerAdapter.notifyGridChange();
             return;
-        } else {
+        }
+        else {
             Intent launchAppIntent = getApplicationContext().getPackageManager().getLaunchIntentForPackage(app.getPackageName());
             if (launchAppIntent != null)
                 getApplicationContext().startActivity(launchAppIntent);
@@ -274,11 +285,10 @@ public class MainActivity extends AppCompatActivity {
     private void removeApp(AppObject appDrag) {
         appDrag.setPackageName("");
         appDrag.setName("");
-        appDrag.setImage(ResourcesCompat.getDrawable(getResources(), R.drawable.check, null));
+        appDrag.setImage(ResourcesCompat.getDrawable(getResources(), R.drawable.gridsquare, null));
         appDrag.setIsAppInDrawer(false);
     }
-
-
+    
     /**
      * When an app is long pressed, this function is called. Used to store app data into an
      * object for movement to the home View.
@@ -398,6 +408,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Function that changes the grid size when the user uses the grid change option in Settings
+     * @param gridSize
+     * @param position
+     */
+    private void updateGrid(int gridSize, int position){
+        int gridSizeCalc;
+        if(gridSize >= 20){
+            gridSizeCalc = gridSize - hViewPagerAdapter.pagerAppList.get(position).getAppList().size();
+            for(int i = 0; i < gridSizeCalc; i++){
+                hViewPagerAdapter.pagerAppList.get(position).getAppList().add(0,new AppObject("", "", ResourcesCompat.getDrawable(getResources(), R.drawable.gridsquare, null), false));
+                hViewPagerAdapter.notifyGridChange();
+            }
+        }
+        else if(gridSize < 20){
+            gridSizeCalc = gridSize;
+            for(int i = 0; i < gridSizeCalc; i++){
+                hViewPagerAdapter.pagerAppList.get(position).getAppList().remove(0);
+                hViewPagerAdapter.notifyGridChange();
+            }
+        }
+    }
+
+    /**
      * Function that retrieves an image from the gallery and will then set it
      * as the homescreen background image. Gets a drawable from the bitmap of
      * an image that is selected and sets that as the background.
@@ -408,7 +441,14 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("Data", "Data Result Code :" + requestCode);
+
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                GRID_SIZE = data.getIntExtra("gridValue",20);
+                Log.d("Grid",String.valueOf(GRID_SIZE));
+                updateGrid(GRID_SIZE, homeViewPager.getCurrentItem());
+        }
+
         switch (requestCode) {
             case RESULT_PRO_IMG:
                 try {
@@ -459,9 +499,12 @@ public class MainActivity extends AppCompatActivity {
                             .show();
                 }
                 break;
+            }
         }
     }
 
 }
+
+
 
 

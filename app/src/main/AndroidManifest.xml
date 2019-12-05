@@ -27,8 +27,7 @@ package="com.example.androidlauncher_cis357">
     <activity android:name=".SettingsActivity"></activity>
     <activity android:name=".ColorActivity"></activity>
     <activity android:name=".InfoActivity"></activity>
-        <activity android:name=".GridSizeActivity"></activity>
-</application>
+    </application>
 
 
 

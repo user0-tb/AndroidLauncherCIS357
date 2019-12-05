@@ -1,6 +1,7 @@
 package com.example.androidlauncher_cis357;
 
 import android.graphics.drawable.Drawable;
+import android.view.View;
 
 public class AppObject{
     private String appName, packageName;
