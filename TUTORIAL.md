@@ -39,5 +39,4 @@ This project was designed to show off the features of a home screen launcher as 
         spots.
                 
                 
-    
 
