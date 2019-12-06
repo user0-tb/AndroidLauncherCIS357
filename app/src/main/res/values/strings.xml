@@ -1,6 +1,22 @@
 <resources>
     <string name="app_name">Android Launcher - CIS 357</string>
     <string name="status_bar_color">Status Bar Color</string>
+    <string name="homeimage">homeImage</string>
+    <string name="settingbuttonimage">settingButtonImage</string>
+    <string name="addpagebutton">addPageButton</string>
+    <string name="removepagebutton">removePageButton</string>
+    <string name="wallpaperbutton">wallpaperButton</string>
+    <string name="navbarcolorpreview">navBarColorPreview</string>
+    <string name="preview">Preview:</string>
+    <string name="statusbarcolorpreview">statusBarColorPreview</string>
+    <string name="version_v_1_0">Version: V 1.0</string>
+    <string name="authors_kyler_kupres_tim_vandyke">Authors: Kyler Kupres, Tim VanDyke</string>
+    <string name="phone_model">Phone Model:</string>
+    <string name="creation_date_11_25_2019">Creation Date: 11/25/2019</string>
+    <string name="appimage">appImage</string>
+    <string name="save_grid_size">Save Grid Size</string>
+    <string name="launcher_preferences">Launcher Preferences</string>
+    <string name="current_page_size">Current page size :</string>
 
     <string-array name="color_array">
         <item>black</item>

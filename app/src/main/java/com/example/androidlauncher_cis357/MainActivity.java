@@ -65,7 +65,10 @@ public class MainActivity extends AppCompatActivity {
     final ArrayList<PagerObject> pagerAppList = new ArrayList<>();
 
     //Integers to change various aspects of the launcher
-    private int DEF_GRID_SIZE = 20;
+    private static final int MINIMUM_ALLOWED_GRID_SIZE = 1 ;
+    private static final int MAX_ALLOWED_GRID_SIZE = 100;
+    private static final int DEF_GRID_SIZE = 20;
+
     private int GRID_SIZE = 20;
     private int NUM_ALLOWED_PAGES = 10;
 
@@ -427,18 +430,43 @@ public class MainActivity extends AppCompatActivity {
      */
     private void updateGrid(int gridSize, int position){
         int gridSizeCalc;
-        if(gridSize >= 20){
-            gridSizeCalc = gridSize - hViewPagerAdapter.pagerAppList.get(position).getAppList().size();
-            for(int i = 0; i < gridSizeCalc; i++){
-                hViewPagerAdapter.pagerAppList.get(position).getAppList().add(0,new AppObject("", "", ResourcesCompat.getDrawable(getResources(), R.drawable.gridsquare, null), false));
-                hViewPagerAdapter.notifyGridChange();
+        //First check if the gridsize is greater than 1 and less than or equal to ALLOWED_GRID_SIZE,
+        //we don't want the user to be able to have infinite grid size
+        if(gridSize > MINIMUM_ALLOWED_GRID_SIZE && gridSize <= MAX_ALLOWED_GRID_SIZE){
+            //Control when the input is greater than 20
+            if(gridSize > 20){
+                gridSizeCalc = gridSize - hViewPagerAdapter.pagerAppList.get(position).getAppList().size();
+                for(int i = 0; i < gridSizeCalc; i++){
+                    hViewPagerAdapter.pagerAppList.get(position).getAppList().add(0,new AppObject("", "", ResourcesCompat.getDrawable(getResources(), R.drawable.gridsquare, null), false));
+                    hViewPagerAdapter.notifyGridChange();
+                }
             }
-        }
-        else if(gridSize < 20){
-            gridSizeCalc = gridSize;
-            for(int i = 0; i < gridSizeCalc; i++){
-                hViewPagerAdapter.pagerAppList.get(position).getAppList().remove(0);
-                hViewPagerAdapter.notifyGridChange();
+            //Control when the input is less than 20
+            else if(gridSize < 20){
+                int currentSize = hViewPagerAdapter.pagerAppList.get(position).getAppList().size();
+                gridSizeCalc = currentSize - gridSize;
+                for(int i = 0; i < gridSizeCalc; i++){
+                    hViewPagerAdapter.pagerAppList.get(position).getAppList().remove(0);
+                    hViewPagerAdapter.notifyGridChange();
+                }
+            }
+            //Control when the input is 20, changes nothing if already 20
+            else if(gridSize == 20){
+                int currentSize = hViewPagerAdapter.pagerAppList.get(position).getAppList().size();
+                if(currentSize < gridSize){
+                    gridSizeCalc = gridSize - currentSize;
+                    for(int i = 0; i < gridSizeCalc; i++){
+                        hViewPagerAdapter.pagerAppList.get(position).getAppList().add(0,new AppObject("", "", ResourcesCompat.getDrawable(getResources(), R.drawable.gridsquare, null), false));
+                        hViewPagerAdapter.notifyGridChange();
+                    }
+                }
+                if(currentSize > gridSize){
+                    gridSizeCalc = currentSize - gridSize;
+                    for(int i = 0; i < gridSizeCalc; i++){
+                        hViewPagerAdapter.pagerAppList.get(position).getAppList().remove(0);
+                        hViewPagerAdapter.notifyGridChange();
+                    }
+                }
             }
         }
     }

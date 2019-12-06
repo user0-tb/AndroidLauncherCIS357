@@ -11,7 +11,7 @@
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Version: V 1.0"
+        android:text="@string/version_v_1_0"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
@@ -19,7 +19,7 @@
         android:id="@+id/textView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Authors: Kyler Kupres, Tim VanDyke"
+        android:text="@string/authors_kyler_kupres_tim_vandyke"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
@@ -27,7 +27,7 @@
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Phone Model: "
+        android:text="@string/phone_model"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
@@ -35,7 +35,7 @@
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Creation Date: 11/25/2019"
+        android:text="@string/creation_date_11_25_2019"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 </LinearLayout>

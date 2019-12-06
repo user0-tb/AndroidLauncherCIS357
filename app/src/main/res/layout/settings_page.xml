@@ -14,8 +14,9 @@
         android:background="#000000"
         android:fontFamily="sans-serif-medium"
         android:scrollHorizontally="false"
-        android:text="  Launcher Preferences"
+        android:text="@string/launcher_preferences"
         android:textAlignment="textStart"
+        android:paddingLeft="10sp"
         android:textAllCaps="false"
         android:textColor="#F3EEEE"
         android:textSize="18sp" />
@@ -96,15 +97,18 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="   Current page size :"
-                    android:textColor="@color/white" />
+                    android:text="@string/current_page_size"
+                    android:textAlignment="viewStart"
+                    android:paddingLeft="10sp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/pagesize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:inputType="number"
                     android:text=""
                     android:textColor="@color/white" />
 
@@ -114,7 +118,7 @@
                 android:id="@+id/savegridsize"
                 android:layout_width="231dp"
                 android:layout_height="wrap_content"
-                android:text=" Save Grid Size" />
+                android:text="@string/save_grid_size" />
 
         </LinearLayout>
     </ScrollView>

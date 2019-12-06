@@ -7,11 +7,12 @@
     android:id="@+id/layout">
 
     <ImageView
+        android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12sp"
         android:layout_gravity="center"
-        android:id="@+id/image"
+        android:layout_margin="12sp"
+        android:contentDescription="@string/appimage"
         android:src="@mipmap/ic_launcher_round" />
 
     <TextView

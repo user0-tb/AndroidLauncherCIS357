@@ -16,6 +16,7 @@
             android:id="@+id/homeScreenImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/homeimage"
             android:fitsSystemWindows="true"
             android:scaleType="centerCrop" />
 
@@ -51,25 +52,29 @@
                     android:id="@+id/settings"
                     android:layout_width="48dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/gear" />
+                    android:background="@drawable/gear"
+                    android:contentDescription="@string/settingbuttonimage" />
 
                 <ImageButton
                     android:id="@+id/addpage"
                     android:layout_width="47dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/whiteplus" />
+                    android:background="@drawable/whiteplus"
+                    android:contentDescription="@string/addpagebutton" />
 
                 <ImageButton
                     android:id="@+id/removepage"
                     android:layout_width="43dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/whiteminus" />
+                    android:background="@drawable/whiteminus"
+                    android:contentDescription="@string/removepagebutton" />
 
                 <ImageButton
                     android:id="@+id/cwallpaper"
                     android:layout_width="37dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/icon_gallery" />
+                    android:background="@drawable/icon_gallery"
+                    android:contentDescription="@string/wallpaperbutton" />
             </LinearLayout>
             <GridView
                 android:id="@+id/drawerGrid"
