@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
         appDrag.setImage(ResourcesCompat.getDrawable(getResources(), R.drawable.gridsquare, null));
         appDrag.setIsAppInDrawer(false);
     }
-    
+
     /**
      * When an app is long pressed, this function is called. Used to store app data into an
      * object for movement to the home View.
