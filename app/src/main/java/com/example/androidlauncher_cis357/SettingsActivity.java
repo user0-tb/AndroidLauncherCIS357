@@ -17,6 +17,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+/**
+ * Class which controls the Settings screen within the launcher
+ */
 public class SettingsActivity extends AppCompatActivity {
     int currentPage;
     int currentGridSize;
@@ -29,11 +32,13 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_page);
 
+        //Set up all buttons on the screen
         Button colorSettings = findViewById(R.id.colorsettings);
         Button settingButton = findViewById(R.id.systemsettings);
         Button launcherInfo = findViewById(R.id.launcherinfo);
         Button gridChangeButton = findViewById(R.id.savegridsize);
 
+        //Set up the gridsize text box
         final TextView gridSizeNumber = findViewById(R.id.pagesize);
 
 
@@ -44,6 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //Get data that was passed to settings from MainActivity
         if(getIntent() != null){
             currentGridSize = getIntent().getIntExtra("currGridSize",0);
             currentPage = getIntent().getIntExtra("currPage",0);

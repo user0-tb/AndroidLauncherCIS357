@@ -1,22 +1,12 @@
 package com.example.androidlauncher_cis357;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.view.MenuItem;
-import android.view.ContextMenu.ContextMenuInfo;
-
 import androidx.annotation.NonNull;
-import androidx.core.view.GestureDetectorCompat;
 import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
@@ -25,10 +15,15 @@ public class ViewPagerAdapter extends PagerAdapter {
     ArrayList<PagerObject> pagerAppList;
     ArrayList<AppAdapter> appAdapterList = new ArrayList<>();
     public GridView homeGridView;
-    public GestureDetector detector;
-
     int cellHeight;
 
+    /**
+     * Set up a new view pager adapter. These are the new pages which display on the
+     * screen.
+     * @param context
+     * @param pagerAppList
+     * @param cellHeight
+     */
     public ViewPagerAdapter(Context context, ArrayList<PagerObject> pagerAppList, int cellHeight) {
         this.context = context;
         this.pagerAppList = pagerAppList;
@@ -51,11 +46,21 @@ public class ViewPagerAdapter extends PagerAdapter {
         return layout;
     }
 
+    /**
+     * Remove a view from the container
+     * @param container
+     * @param position
+     * @param object
+     */
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((View) object);
     }
 
+    /**
+     * Get the size of the view pager
+     * @return
+     */
     @Override
     public int getCount() {
         return pagerAppList.size();
@@ -67,6 +72,10 @@ public class ViewPagerAdapter extends PagerAdapter {
     }
 
 
+    /**
+     * Notifies the adapter list of a change in the grid. Used when the user creates a new page,
+     * adds/removes apps, and also when the user changes the grid size of a launcher page.
+     */
     public void notifyGridChange() {
         for (int i = 0; i < appAdapterList.size(); i++) {
             appAdapterList.get(i).notifyDataSetChanged();

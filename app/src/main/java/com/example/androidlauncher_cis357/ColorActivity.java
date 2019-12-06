@@ -12,23 +12,28 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.sql.Struct;
-
+/**
+ * Class which controls the ColorActivity settings
+ */
 public class ColorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.color_page);
 
+        //The two spinners on the color setting page
         final Spinner statColorSpinner = findViewById(R.id.colorSpinner1);
         final Spinner navColorSpinner = findViewById(R.id.colorSpinner2);
 
+        //The two image views on the color settings page
         final ImageView navColorPreview = findViewById(R.id.navBarColor);
         final ImageView statColorPreview = findViewById(R.id.statusBarColor);
 
+        //Arrays which contain the colors a user can change to
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.color_array, android.R.layout.simple_spinner_item);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.color_array, android.R.layout.simple_spinner_item);
 
+        //Set all adapters
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -40,6 +45,7 @@ public class ColorActivity extends AppCompatActivity {
 
         final Window w = this.getWindow();
 
+        //Set up one of the color spinners
         statColorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -58,6 +64,7 @@ public class ColorActivity extends AppCompatActivity {
             }
         });
 
+        //Set up one of the color spinners
         navColorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

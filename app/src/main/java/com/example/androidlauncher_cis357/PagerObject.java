@@ -9,10 +9,18 @@ import java.util.ArrayList;
 public class PagerObject implements Serializable {
     private ArrayList<AppObject> homeAppList;
 
+    /**
+     * Sets up the new PagerObject within the home screen
+     * @param homeAppList
+     */
     public PagerObject(ArrayList<AppObject> homeAppList){
         this.homeAppList = homeAppList;
     }
 
+    /**
+     * Gets the homeAppList from the PagerObject
+     * @return
+     */
     public ArrayList<AppObject> getAppList(){
         return homeAppList;
     }

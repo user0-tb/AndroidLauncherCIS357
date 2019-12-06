@@ -50,13 +50,11 @@ public class MainActivity extends AppCompatActivity {
     public AppObject appDrag = null;
     ViewPagerAdapter hViewPagerAdapter;
     public ImageView homeImage;
-    public boolean deleteApp;
     public static final int RESULT_PRO_IMG = 1;
     private HashSet<String> set;
     final ArrayList<PagerObject> pagerAppList = new ArrayList<>();
 
-    //Integers to change the grid size of the launcher programatically
-
+    //Integers to change various aspects of the launcher
     private int DEF_GRID_SIZE = 20;
     private int GRID_SIZE = 20;
     private int NUM_ALLOWED_PAGES = 10;

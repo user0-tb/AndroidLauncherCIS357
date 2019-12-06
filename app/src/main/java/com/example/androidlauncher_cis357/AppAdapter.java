@@ -1,61 +1,70 @@
 package com.example.androidlauncher_cis357;
 
-import android.content.ClipData;
-import android.content.ClipDescription;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.viewpager.widget.ViewPager;
-
 import java.util.List;
-import java.util.Set;
-import java.util.prefs.Preferences;
-import java.util.stream.Collectors;
 
-import static android.view.MotionEvent.INVALID_POINTER_ID;
-
-public class AppAdapter extends BaseAdapter {
+class AppAdapter extends BaseAdapter {
     Context context;
     List<AppObject> appList;
     int cellHeight;
-    ClipData data;
 
-
+    /**
+     * AppAdapter construct that sets up the app with touch and movement abilities
+     * @param context
+     * @param appList
+     * @param cellHeight
+     */
     public AppAdapter(Context context, List<AppObject> appList, int cellHeight) {
         this.context = context;
         this.appList = appList;
         this.cellHeight = cellHeight;
     }
 
-
+    /**
+     * Get a count of the appList
+     * @return
+     */
     @Override
     public int getCount() {
         return appList.size();
     }
 
+    /**
+     * Get an item from the appList at a certain position
+     * @param position
+     * @return
+     */
     @Override
     public Object getItem(int position) {
         return appList.get(position);
     }
 
+    /**
+     * Get the Item ID of an item
+     * @param position
+     * @return
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Set up the view of the appList within the screen, sets up touch control as well as the
+     * images for each of the apps.
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View v;
@@ -84,6 +93,7 @@ public class AppAdapter extends BaseAdapter {
             }
         });
 
+        //Set a long click listener for all the apps within the view
         vLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
