@@ -2,13 +2,17 @@ package com.example.androidlauncher_cis357;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -37,6 +41,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Main activity for the Android Launcher
+ * Version: 1.1
+ * Authors: Kyler Kupres & Tim VanDyke
+ * Date: 12/06/2019
+ */
 public class MainActivity extends AppCompatActivity {
 
     List<AppObject> installedAppList = new ArrayList<>();
@@ -64,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Ask user for folder permission if it is not already set
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+        }
 
         //Set up the topDrawer layout
         topDrawerLayout = findViewById(R.id.topDrawerLayout);
