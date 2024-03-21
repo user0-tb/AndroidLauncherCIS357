@@ -32,6 +32,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.webkit.WebView;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.IOException;
@@ -84,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Set up the topDrawer layout
+        WebView webView;
+        webView = (WebView)findViewById(R.id.webView);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("file:///android_asset/index.html");
         topDrawerLayout = findViewById(R.id.topDrawerLayout);
         topDrawerLayout.post(new Runnable() {
             @Override
