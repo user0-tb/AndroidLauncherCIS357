@@ -1,0 +1,66 @@
+#container * {text-align: center;}
+
+:root {
+
+    /* Font, set it to a font (obviously)                               */
+    /* If your font's name is multiple words, put it in 'single quotes' */
+    /* Examples: sans-serif, 'Times New Roman', Courier                 */
+    --font: 'DejaVu Sans Mono', monospace;
+
+
+    /* Name, set it to ", [your name]."                                 */
+    /* Example: if your name is Martin, set it to ", Martin."           */
+    /* Set it to "." if you don't want it to show a name                */
+    --name: ".";
+
+
+    /* COLORS                                                           */
+    /* Set these to colors in hex format                                */
+    /* I personally went for the Catppuccin Mocha palette               */
+
+    /* Foreground color, used for text                                  */
+    --fgcolor: #cdd6f4;
+
+    /* Accent color, used for the clock                                 */
+    --accent: #a6e3a1;
+
+    /* Background color, used for the background                        */
+    --bgcolor: #1e1e2e;
+}
+
+/* Rest of the CSS */
+body, html {
+    background-color: var(--bgcolor);
+    font-family: var(--font);
+    color: var(--fgcolor);
+}
+.center-div {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#clock {
+    color: var(--accent);
+    text-decoration: underline;
+    font-size: 96pt;
+    font-weight: bold;
+    margin: 0;
+}
+.bigtext {
+    font-size: xx-large;
+}
+#welcome::after {
+    content: var(--name);
+}
+@media (max-width: 625px) and (min-width: 470px) {
+    #clock {
+        font-size: 72pt;
+    }
+}
+@media (max-width: 469px) {
+    #clock {
+        font-size: 48pt;
+    }
+               }
